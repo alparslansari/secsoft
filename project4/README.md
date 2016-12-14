@@ -1,3 +1,5 @@
+We found several vulnerabilities on other team's project and were able to exploit them. Below is our results.
+
 Unintended behaviors with normal inputs
 
     Design Flaw: All users have access to other user's emails
