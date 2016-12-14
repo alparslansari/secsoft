@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Secsoft by alparslansari</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Secsoft</h1>
+      <h2 class="project-tagline">Alp&#39;s Secure Software excercises</h2>
+      <a href="https://github.com/alparslansari/secsoft" class="btn">View on GitHub</a>
+      <a href="https://github.com/alparslansari/secsoft/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/alparslansari/secsoft/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h3>
+<a id="welcome-to-secure-software-design" class="anchor" href="#welcome-to-secure-software-design" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to Secure Software Design</h3>
+
+<p>This cybersecurity course introduce the theory and practices used to help make a computer program secure and provide the skills needed to implement programs that are free from vulnerabilities. There are 5 projects implemented in this course work.</p>
+
+<h3>
+<a id="summary-of-skill-sets-which-are-utilized-in-this-work" class="anchor" href="#summary-of-skill-sets-which-are-utilized-in-this-work" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Summary of Skill sets which are utilized in this work</h3>
+
+<p>C/C++, python, Sqlite, Php, HTML/CSS, Javascript, JQuery</p>
+
+<ul>
+<li>Experienced in Advanced Cryptography</li>
+<li>Experienced in Web Deployment</li>
+<li>Experienced in Secure Software Design</li>
+<li>Experienced in Code Analysis and Debug</li>
+<li>Risk assessment at a CERT level</li>
+<li>Practical awareness of the types of attacks</li>
+<li>Ability to fix problems/bugs/vulnerabilities etc</li>
+<li>Ability to find problems which needs to be fixed</li>
+</ul>
+
+<h3>
+<a id="first-project-markovian-tweets" class="anchor" href="#first-project-markovian-tweets" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>First project: Markovian-tweets</h3>
+
+<p><strong>Project Requirements:</strong> Consume a text file with sentences and produce a tweet (&lt; 145 characters) with the style of the input text.</p>
+
+<ol>
+<li>
+<strong>Level 1:</strong> does the base Markov Sentence Generation from the sample text.</li>
+<li>
+<strong>Layer 2:</strong> if you've got web skills on your team: Consume a Twitter username and create a sample of that person's tweets, then generate a tweet in their style. </li>
+<li>
+<strong>Layer 3:</strong> Create a bot which accepts username and tweets a message in that user's style.</li>
+</ol>
+
+<p><strong>Project Status:</strong> Level 1, 2 &amp; 3 are successfully implemented and functional.</p>
+
+<p><strong>Project Repository:</strong> For more information <a href="https://github.com/kkatayama/markov_tweets">https://github.com/kkatayama/markov_tweets</a></p>
+
+<p><strong>Skill sets used in this project:</strong> C/C++ (266 sLOC), python (54 sLOC)</p>
+
+<h3>
+<a id="second-project-markovian-tweets-red-team" class="anchor" href="#second-project-markovian-tweets-red-team" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Second project: Markovian-tweets (Red-team)</h3>
+
+<p>We get the code from a project 1 (a distinct team). We hunted for exploits and weaknesses from the SEI CERT C Coding Standard and/or CERT C++ Coding Standard found: <a href="https://www.securecoding.cert.org/confluence/display/seccode/SEI+CERT+Coding+Standards">https://www.securecoding.cert.org/confluence/display/seccode/SEI+CERT+Coding+Standards</a>. We specifically looked for weaknesses, exploits, or proper protections that the developers used from the MEM and STR families of rules and recommendations.</p>
+
+<p><strong>Project Status:</strong> We examined the source code provided by another team and found some good and bad practices.</p>
+
+<p><strong>Project Report:</strong> To read more about this project, see <a href="https://github.com/alparslansari/secsoft/blob/master/project2/report.htm">report.htm</a></p>
+
+<p><strong>Skill sets used in this project:</strong> Code analysis, risk analysis on given source code.</p>
+
+<h3>
+<a id="third-project-command-line-minesweeper" class="anchor" href="#third-project-command-line-minesweeper" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Third project: Command-Line Minesweeper</h3>
+
+<p><strong>Project Requirements:</strong> Write a function which consumes three arguments width height number_of_mines and generates a Minesweeper board internally. The board is a rectangle with a cover over each square. It will display this board to the user and prompt for a coordinate where they predict that no mine exists (format: x-coord y-coord 0-indexed). If they struck a mine then they lose (let them know). Otherwise uncover the selected square. If there are no adjacent mines then it should be blank and you uncover all adjacent squares too (chain-react this for every blank square). Otherwise show the number of mines in the surrounding 8 squares. If at some point only mines are covered then the user wins and the game ends. Extra levels for (first click always blank) and the ability to flag mines.</p>
+
+<p><strong>Project Status:</strong> All of the project requirements are implemented successfully. We analyzed and identified risks for our own project and patched the vulnerabilities. </p>
+
+<p><a href="https://github.com/samkossey/project_3_blue.git">Opponent Code</a> is also analyzed by us and possible vulnerabilities are exploited. </p>
+
+<p><strong>Project Repository:</strong> See <a href="https://github.com/alparslansari/minesweeper-nogui">https://github.com/alparslansari/minesweeper-nogui</a></p>
+
+<p><strong>Skill sets used in this project:</strong> C/C++ (720 sLOC)</p>
+
+<h3>
+<a id="fourth-project-gee-mail---a-secure-asynchronous-message-platform" class="anchor" href="#fourth-project-gee-mail---a-secure-asynchronous-message-platform" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Fourth project: Gee-Mail - a secure asynchronous message platform</h3>
+
+<p><strong>Project Requirements:</strong> Write a secure asynchronous (same-machine) message platform.</p>
+
+<ul>
+<li>When loaded prompt the user to sign-in or register. </li>
+<li>When a user registers get their username and password. </li>
+<li>When a user logs in ask for username and validate password.</li>
+<li>If login fails, choose your response. </li>
+<li>Once logged in, tell them the number of messages they have, list the users that have sent them a message. (You can limit this to one message from a given sender or add a timestamp or even a title to messages if you want a level 2.) </li>
+<li>Then ask if they want to read messages or write messages. </li>
+<li>When writing messages prompt them for the receipient username, the message, and a shared passphrase with that receipient. </li>
+<li>When they read a message let them select the message somehow, then prompt them for the shared passphrase with that receipient, then show a plaintext message. </li>
+<li>
+<strong>IMPORTANT:</strong> do not ever store passwords, messages, or passphrases in plaintext, this is an encrypted messaging system. The rule sets in play for this stage are FIO and ERR.</li>
+</ul>
+
+<p><strong>Project Status:</strong> All of the project requirements are implemented successfully. We analyzed and identified risks for our own project and patched the vulnerabilities. We designed the project in a modular way. All core functions stayed in our GeeMail libraries so desktop version of the project and web based project are used same libraries. We utilized many good practices of software engineering techniques and methodologies in this project. Moreover, high level cryptography is implemented in this project.</p>
+
+<p>Part 2, we found several vulnerabilities and were able to exploit them. To read more <a href="https://github.com/alparslansari/secsoft/tree/master/project4">see the report</a></p>
+
+<p><strong>Project Repository:</strong> See desktop version <a href="https://github.com/kkatayama/Gee-Mail">https://github.com/kkatayama/Gee-Mail</a></p>
+
+<p>See web based api <a href="https://github.com/alparslansari/gee-web-mail">https://github.com/alparslansari/gee-web-mail</a></p>
+
+<p><strong>Skill sets used in this project:</strong> C/C++ (502 sLOC), Php (696 sLOC), HTML/CSS/JS, JQuery, Advanced Cryptography</p>
+
+<h3>
+<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+
+<p>I am Alparslan Sari (<a href="https://github.com/alparslansari" class="user-mention">@alparslansari</a>) contributed in all projects. Participated design of the software, coded modules, and tested our codes etc. My other team members are Teddy Katayama (<a href="https://github.com/kkatayama" class="user-mention">@kkatayama</a>) and Zhou Kevin (<a href="https://github.com/KevinZhou92" class="user-mention">@KevinZhou92</a>)</p>
+
+<p><strong>To see Teddy's (<a href="https://github.com/kkatayama" class="user-mention">@kkatayama</a>) accomplishments with me, see his awesome page:</strong> <a href="https://secsoft.github.io/">https://secsoft.github.io/</a></p>
+
+<p><strong>Note:</strong> <em>sLOC:</em> source lines of code</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/alparslansari/secsoft">Secsoft</a> is maintained by <a href="https://github.com/alparslansari">alparslansari</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
