@@ -1,0 +1,256 @@
+Markov Sentence Generator Investiagtion Report
+
+We examined the source code provided by team 14 and found some good and bad practices.  The source code and initial investigation is listed below, followed by a review with respect to the CERT C++ Coding Standard
+
+Please Note: as you will see in the source code provided, this program does not actually generate a markov sentence.  This application simply prints out the first two words provided in a sample text file and then randomly prints out words.  
+
+This is actually a random word generator 
+
+Source Code:
+
+#define N 2
+
+#define MAX 10000
+
+#include<iostream>
+
+#include<string>
+
+#include<deque>
+
+#include<vector>
+
+#include<map>
+
+#include<stdlib.h>
+
+#include<ctime>
+
+#include<sstream>
+
+#include<fstream>
+
+using namespace std;
+
+typedef deque<string> Prefix;
+
+typedef vector<string> Postfix;
+
+typedef map<Prefix, Postfix> mapping_table;
+
+char fake_prefix[] = "\n";
+
+void add_post(Prefix &pre, mapping_table &tab, const string &s)
+
+{	
+
+	if (pre.size() == N)
+
+	{
+
+		tab[pre].push_back(s);
+
+		pre.pop_front();
+
+	}
+
+	pre.push_back(s);
+
+	
+
+}
+
+void build_samp(Prefix &pre, mapping_table &tab, istream &in)
+
+{
+
+	string cur_word;
+
+	while (in >> cur_word)
+
+	{
+
+		add_post(pre, tab, cur_word);
+
+	}
+
+}
+
+void generate_sentence( mapping_table &tab)
+
+{
+
+	srand(time(NULL));
+
+	Prefix prefix;
+
+	for (int i = 0; i < N; i++)
+
+	{
+
+		add_post(prefix,tab,fake_prefix);
+
+	}
+
+	for (int i = 0; i < MAX; i++)
+
+	{
+
+		Postfix cur_post = tab[prefix];
+
+		const string &w = cur_post[rand() % cur_post.size()];
+
+		if (w == "\n") break;
+
+		cout << w<<" ";
+
+		prefix.pop_front();
+
+		prefix.push_back(w);
+
+	}
+
+	cout << endl;
+
+}
+
+int main()
+
+{
+
+	Prefix pre_;
+
+	mapping_table table_;
+
+	for (int i = 0; i < N; i++)
+
+	{
+
+		add_post(pre_, table_, fake_prefix);
+
+	}
+
+	//string sample_swntence = "my name is SongYang, my name is LiSiqi,my name is zuiniubi";
+
+	string sample_sentence;
+
+	ifstream fin("sample.txt");
+
+	if (fin)
+
+	{
+
+		getline(fin, sample_sentence);
+
+	}	
+
+	else
+
+	{
+
+		cout << "can't find the file";
+
+	}
+
+	istringstream in(sample_sentence);
+
+	build_samp(pre_, table_, in);
+
+	add_post(pre_, table_, fake_prefix);
+
+	generate_sentence(table_);
+
+	system("pause");
+
+	return 0;
+
+}
+
+
+
+
+
+Vulnerabilities[1]:
+
+In this markov code, there is a system function, this will cause potential secure risk:
+
+First: Calling "system" is literally like typing a command into the windows command prompt. There is a ton of setup and teardown for this application to make such a call - and the overhead is simply ridiculous.
+
+If a program called "pause" was placed into the user's PATH, just calling system("pause") only guarantees that a program called "pause" is executed.
+
+We should simply write our own "Pause()" function that uses _getch. Though _getch is platform dependent as well, but it's much nicer than system() if we are developing on Windows and it has the same effect 
+
+Basically, we do not have to introduce so many potential problems while we can simply add two lines to make the same effect.
+
+Potential Risk:
+
+We can use system(“pause”) to jump to other program if we put an excutable program named “pause” under users’s path.
+
+Vulnerabilities[2]:
+
+The rand() function in C++ generates lower random number much more likely than large numbers, this will cause the program lose some randomness.
+
+Besides,  this function is not sufficiently random for security-related functions such as key and nonce creation.
+
+
+Comments
+
+The program does not take any kind of arguments. We also tested the program on Linux environement. The code compile process was successful however when we tried to run the program on bash we got following error:
+
+sh: 1: pause: not found
+
+
+So we decided to see if we could produce an exploit without modifying their code.  We simply created a file called ‘pause’ and added the following lines
+
+/bin/echo '\n'
+
+/bin/cat /etc/passwd | egrep -v '_|#'
+
+
+Now, after running their code, this was the output:
+
+
+
+
+Major usability issues in Software Engineering Perspective
+
+    Platform dependent code:
+
+The code is platform dependent. “pause” is for windows platform. It is always important to design the code platform independent. They should not use platform dependent modules or provide alternative ones for the other systems such as linux etc.
+
+    Hard coded file name:
+
+Line: ifstream fin("sample.txt");
+
+Hard coding the file name in the program which uses to read a file is not a good practice.  If the file is not found the program will not be functional. If this was a disributable compiled code, the user will not figure out the problem, unless a documentation is provided.
+
+    Not descriptive error messages:
+
+Line: cout << "can't find the file"; Just prints if the file is not opened. If the file is hard coded at least they should have provide some instructions saying “sample.txt is not found etc.”
+
+In conclusion the code evaluated above has needs improvement, since there are many code examples which are not right practices and not appreciated in Software Engineering concept.
+
+
+
+
+
+SEI CERT C++ Coding Standard
+
+Violations:
+
+    FIO51-CPP -  Close files when they are no longer needed
+    they open the ‘sample.txt’ file using ifstream but never close (terminate) it
+
+    DCL52-CPP - Never qualify a reference type with const or volatile
+    line 45: const string &w = cur_post[rand() % cur_post.size()];
+
+    This noncompliant code example correctly declares w to be a reference to a const-qualified char. The subsequent modification of w makes the program ill-formed and may result in undefined behavior instead of a fatal diagnostic, causing unexpected values to be stored and leading to possible data integrity violations.
+    ‘const’ should be removed
+
+    ENV02-CPP - Do not call system() if you do not need a command processor
+    line 76: system("pause");
+    As shown in our investigation above, we were able to execute unintended shell code without modifying the source code
+
+Good Practice:
+
+DCL51-CPP - Do not declare or define a reserved identifier
